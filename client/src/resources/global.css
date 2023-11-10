@@ -36,3 +36,28 @@ input{
 .text-md{
     font-size: 10px;
 }
+
+/* buttons */
+.primary-btn{
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+
+.secondary-btn{
+    background-color: var(--secondary);
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+
+/* anchor tag */
+a{
+    text-decoration: none !important;
+    color: var(--primary) !important;
+}
