@@ -1,11 +1,23 @@
 import React from 'react';
-import { Form } from 'antd';
+import { Form, message } from 'antd';
 import { Link } from "react-router-dom";
+import axios from "axios";
 function Register() {
 
 
-    const onFinish = (values) => {
-        console.log(values)
+    const onFinish = async (values) => {
+        try {
+            const response = await axios.post("/api/users/register", values);
+            if (response.data.success) {
+                message.success(response.data.message);
+            }
+            else {
+                message.error(response.data.message);
+            }
+        }
+        catch (error) {
+            message.error(error.message);
+        }
     }
     return (
         <div className='h-screen d-flex justify-content-center align-items-center'>
@@ -13,7 +25,7 @@ function Register() {
                 <h1 className='text-lg'> ANI-BUS - Register</h1>
                 <hr />
                 <Form layout='vertical' onFinish={onFinish}>
-                    <Form.Item label='Name' name='Name'>
+                    <Form.Item label='Name' name='name'>
                         <input type="text" />
                     </Form.Item>
                     <Form.Item label='Email' name='email'>
