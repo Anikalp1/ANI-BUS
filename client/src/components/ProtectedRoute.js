@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { message } from "antd";
 import React, { children, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -21,10 +22,14 @@ function ProtectedRoute({children}) {
             }
             else { 
                 setLoading(false);
+                localStorage.removeItem("token");
+                message.error(response.data.message);
                 navigate('/login');
             }
         }
         catch (error) {
+            localStorage.removeItem("token");
+            message.error(error.message);
             setLoading(false);
             navigate("/login");
         }
