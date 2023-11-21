@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
         if (!token) {
             return res.status(401).send({
                 message: "Auth failed",
-                success: false
+                success: false,
             });
         }
 
@@ -19,7 +19,7 @@ module.exports = (req, res, next) => {
         return res.status(401).send({
             message: "Auth failed",
             success: false,
-        });
+        })
 
     }
-};
+}

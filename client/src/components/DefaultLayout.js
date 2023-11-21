@@ -1,11 +1,34 @@
 import React from "react";
 import "../resources/layout.css";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function DefaultLayout({ children }) {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = React.useState(false);
-  const userMenu = [];
+  const {user} = useSelector(state => state.users);
+  const userMenu = [
+      {
+        name: "Home",
+        path: "/",
+        icon: "ri-home-3-line",
+      },
+      {
+        name: "Bookings",
+        path: "/bookings",
+        icon: "ri-file-list-line",
+      },
+      {
+        name: "Profile",
+        path: "/profile",
+        icon: "ri-user-line",
+      },
+      {
+        name: "Logout",
+        path: "/logout",
+        icon: "ri-logout-box-line",
+      },
+  ];
   const adminMenu = [
     {
       name: "Home",
@@ -33,12 +56,17 @@ function DefaultLayout({ children }) {
       icon: "ri-logout-box-line",
     },
   ];
-  const menuToBeRendered = adminMenu;
+  const menuToBeRendered = user?.isAdmin ? adminMenu : userMenu;
   const activeRoute = window.location.pathname;
   return (
     <div className="layout-parent">
       <div className="sidebar">
-        <div className="d-flex flex-column gap-3 justify-content-start">
+        <div className="sidebar-header">  
+         <h1 className="logo">AB</h1>
+         <h1 className="role">{user?.name} <br/> Role:{user?.isAdmin ? 'Admin' : 'User'}</h1>
+        </div>
+        
+        <div className="d-flex flex-column gap-3 justify-content-start menu">
           {menuToBeRendered.map((item, index) => {
             return (
               <div
@@ -47,13 +75,20 @@ function DefaultLayout({ children }) {
                 } menu-item`}
               >
                 <i className={item.icon}></i>
-                <span
-                  onClick={() => {
-                    navigate(item.path);
-                  }}
-                >
-                  {item.name}
-                </span>
+                {!collapsed && (
+                  <span
+                    onClick={() => {
+                      if (item.path === "/logout") {
+                        localStorage.removeItem("token");
+                        navigate("/login");
+                      } else {
+                        navigate(item.path);
+                      }
+                    }}
+                  >
+                    {item.name}
+                  </span>
+                )}
               </div>
             );
           })}

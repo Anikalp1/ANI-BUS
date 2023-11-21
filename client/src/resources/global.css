@@ -62,6 +62,14 @@ a{
     color: var(--primary) !important;
 }
 
+i{
+    cursor: pointer;
+    font-size: 25px;
+}
+h1{
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
 /* Loader */
 .spinner-parent{
     position: absolute;
