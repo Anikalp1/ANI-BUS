@@ -32,7 +32,7 @@ function DefaultLayout({ children }) {
   const adminMenu = [
     {
       name: "Home",
-      path: "/",
+      path: "/admin",
       icon: "ri-home-line",
     },
     {
