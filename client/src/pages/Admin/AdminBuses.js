@@ -9,8 +9,9 @@ import moment from "moment";
 
 function AdminBuses() {
   const dispatch = useDispatch();
-  const [showBusForm, setShowBusForm] = React.useState(false);
+  const [showBusForm, setShowBusForm] = useState(false);
   const [buses, setBuses] = useState([]);
+  const [selectedBus, setSelectedBus] = useState(null);
   const getBuses = async () => {
     try {
       dispatch(ShowLoading());
@@ -46,8 +47,7 @@ function AdminBuses() {
     },
     {
       title: "Journey Date",
-      dataIndex: "journeyDate",
-      render: (journeyDate) => moment(journeyDate).format("DD-MM-YYYY"),
+      dataIndex: "journeyDate"
     },
     {
       title: "Status",
@@ -59,7 +59,11 @@ function AdminBuses() {
       render: (action, record) => (
         <div className="d-flex gap-3">
           <i class="ri-delete-bin-5-line"></i>
-          <i class="ri-pencil-fill"></i>
+          <i class="ri-pencil-fill" onClick={() =>
+          {
+            setSelectedBus(record);
+            setShowBusForm(true);
+          }}></i>
         </div>
       )
     },
@@ -84,7 +88,10 @@ function AdminBuses() {
         <BusForm
           showBusForm={showBusForm}
           setShowBusForm={setShowBusForm}
-          type="add"
+          type= {selectedBus ? "edit" : "add"}
+          selectedBus = {selectedBus}
+          setSelectedBus = {setSelectedBus}
+          getData = {getBuses}
         />
       )}
     </div>
