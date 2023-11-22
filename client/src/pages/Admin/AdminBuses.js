@@ -28,6 +28,24 @@ function AdminBuses() {
     }
   };
 
+  const deleteBus = async (id) => {
+    try {
+      dispatch(ShowLoading());
+      const response = await axiosInstance.post("/api/buses/delete-bus", {
+        _id: id,
+      });
+      dispatch(HideLoading());
+      if (response.data.success) {
+        message.success(response.data.data);
+        getBuses();
+      } else {
+        message.error(response.data.message);
+      }
+    } catch (error) {
+      dispatch(HideLoading());
+      message.error(error.message);
+    }
+  };
   const columns = [
     {
       title: "Name",
@@ -47,7 +65,7 @@ function AdminBuses() {
     },
     {
       title: "Journey Date",
-      dataIndex: "journeyDate"
+      dataIndex: "journeyDate",
     },
     {
       title: "Status",
@@ -58,14 +76,21 @@ function AdminBuses() {
       dataIndex: "action",
       render: (action, record) => (
         <div className="d-flex gap-3">
-          <i class="ri-delete-bin-5-line"></i>
-          <i class="ri-pencil-fill" onClick={() =>
-          {
-            setSelectedBus(record);
-            setShowBusForm(true);
-          }}></i>
+          <i
+            class="ri-delete-bin-5-line"
+            onClick={() => {
+              deleteBus(record._id);
+            }}
+          ></i>
+          <i
+            class="ri-pencil-fill"
+            onClick={() => {
+              setSelectedBus(record);
+              setShowBusForm(true);
+            }}
+          ></i>
         </div>
-      )
+      ),
     },
   ];
 
@@ -81,17 +106,15 @@ function AdminBuses() {
         </button>
       </div>
 
-      <Table
-       columns={columns}
-       dataSource={buses} />
+      <Table columns={columns} dataSource={buses} />
       {showBusForm && (
         <BusForm
           showBusForm={showBusForm}
           setShowBusForm={setShowBusForm}
-          type= {selectedBus ? "edit" : "add"}
-          selectedBus = {selectedBus}
-          setSelectedBus = {setSelectedBus}
-          getData = {getBuses}
+          type={selectedBus ? "edit" : "add"}
+          selectedBus={selectedBus}
+          setSelectedBus={setSelectedBus}
+          getData={getBuses}
         />
       )}
     </div>
