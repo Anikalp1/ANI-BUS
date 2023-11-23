@@ -23,19 +23,19 @@ input{
 
 /* text-sizes */
 .text-2xl{
-    font-size: 30px;
+    font-size: 30px !important;
 }
 
 .text-xl{
-    font-size: 25px;
+    font-size: 25px !important;
 }
 
 .text-lg{
-    font-size: 20px;
+    font-size: 20px !important;
 }
 
 .text-md{
-    font-size: 10px;
+    font-size: 10px !important;
 }
 
 .underline{
