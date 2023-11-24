@@ -5,6 +5,7 @@ import { Col, Row, message } from "antd";
 import { axiosInstance } from "../helpers/axiosInstance";
 import { useParams } from "react-router-dom";
 import SeatSelection from "../components/SeatSelection";
+import StripeCheckout from "react-stripe-checkout";
 
 function BookNow() {
   const [selectedSeats, setSelectedSeats] = useState([]);
@@ -47,6 +48,10 @@ function BookNow() {
       message.error(error.message);
     }
   };
+
+  const onToken = (token) => {
+    console.log(token)
+  }
   useEffect(() => {
     getBus();
   }, []);
@@ -91,15 +96,20 @@ function BookNow() {
                 <b>Fare : </b> ₹ {bus.fare * selectedSeats.length} /-
               </h1>
               <hr />
-              <button
-                className={`btn btn-primary ${
-                  selectedSeats.length === 0 && "disabled-btn"
-                }`}
-                onClick={bookNow}
-                disabled={selectedSeats.length === 0}
+
+              <StripeCheckout
+                token={onToken}
+                stripeKey="pk_test_51OFd1lSHIA2lE59ZpLzg5FxvlwXuCLd3hbQ574pQnl6KqNTXItvADSE2XT0XIagUTXDSvIDL2j9VnXMK0VlaWIoL00XHSKCrK0"
               >
-                Book Now
-              </button>
+                <button
+                  className={`btn btn-primary ${
+                    selectedSeats.length === 0 && "disabled-btn"
+                  }`}
+                  disabled={selectedSeats.length === 0}
+                >
+                  Book Now
+                </button>
+              </StripeCheckout>
             </div>
           </Col>
 
