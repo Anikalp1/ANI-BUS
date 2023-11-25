@@ -49,9 +49,24 @@ function BookNow() {
     }
   };
 
-  const onToken = (token) => {
-    console.log(token)
-  }
+  const onToken = async (token) => {
+    try {
+      dispatch(ShowLoading());
+      const response = await axiosInstance.post("/api/bookings/make-payment", {
+        token,
+        amount: selectedSeats.length * bus.fare * 100,
+      });
+      dispatch(HideLoading());
+      if (response.data.success) {
+        message.success(response.data.message);
+      } else {
+        message.error(response.data.message);
+      }
+    } catch (error) {
+      dispatch(HideLoading());
+      message.error(error.message);
+    }
+  };
   useEffect(() => {
     getBus();
   }, []);
@@ -98,7 +113,10 @@ function BookNow() {
               <hr />
 
               <StripeCheckout
+               billingAddress
                 token={onToken}
+                amount={bus.fare * selectedSeats.length * 100}
+                currency="INR"
                 stripeKey="pk_test_51OFd1lSHIA2lE59ZpLzg5FxvlwXuCLd3hbQ574pQnl6KqNTXItvADSE2XT0XIagUTXDSvIDL2j9VnXMK0VlaWIoL00XHSKCrK0"
               >
                 <button
