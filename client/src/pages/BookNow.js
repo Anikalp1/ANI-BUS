@@ -30,12 +30,13 @@ function BookNow() {
     }
   };
 
-  const bookNow = async () => {
+  const bookNow = async (transactionId) => {
     try {
       dispatch(ShowLoading());
       const response = await axiosInstance.post("/api/bookings/book-seat", {
         bus: bus._id,
         seats: selectedSeats,
+        transactionId,
       });
       dispatch(HideLoading());
       if (response.data.success) {
@@ -59,6 +60,7 @@ function BookNow() {
       dispatch(HideLoading());
       if (response.data.success) {
         message.success(response.data.message);
+        bookNow(response.data.data.transactionId);
       } else {
         message.error(response.data.message);
       }

@@ -6,12 +6,10 @@ const stripe = require("stripe")(process.env.stripe_key);
 const { v4: uuidv4 } = require("uuid");
 
 //book a seat
-
 router.post("/book-seat", authMiddleware, async (req, res) => {
   try {
     const newBooking = new Booking({
       ...req.body,
-      transactionId: "1234",
       user: req.body.userId,
     });
     await newBooking.save();
@@ -43,10 +41,9 @@ router.post("/make-payment", authMiddleware, async (req, res) => {
     const payment = await stripe.paymentIntents.create(
       {
         amount: amount,
-        currency: "usd",
+        currency: "inr",
         customer: customer.id,
         receipt_email: token.email,
-        payment_method_types: ["card"],
       },
       {
         idempotencyKey: uuidv4(),
