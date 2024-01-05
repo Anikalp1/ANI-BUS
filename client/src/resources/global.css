@@ -20,8 +20,8 @@ input , select{
 /*card*/
 .card{
     border: 2px solid gray;
-    box-shadow: 0 0 2px gray;
-    border-radius: 0 !important;
+    box-shadow: 0 0 1px gray;
+    border-radius: 1 !important;
 }
 
 /* text-sizes */
@@ -50,7 +50,6 @@ input , select{
 .primary-btn{
     background-color: var(--primary);
     color: white;
-    border: none;
     padding: 10px 20px;
     cursor: pointer;
 }
