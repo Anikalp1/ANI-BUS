@@ -31,16 +31,16 @@ function Home() {
   }, []);
   return (
     <div>
-      <div>
-
-      </div>
+      <div></div>
       <div>
         <Row>
-          {buses.map((bus) => (
-            <Col lg = {12} xs={24} sm={24}>
-            <Bus bus = {bus} />
-            </Col>
-          ))}
+          {buses
+            .filter((bus) => bus.status === "Yet To Start")
+            .map((bus) => (
+              <Col lg={12} xs={24} sm={24}>
+                <Bus bus={bus} />
+              </Col>
+            ))}
         </Row>
       </div>
     </div>

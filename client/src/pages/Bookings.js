@@ -7,7 +7,7 @@ import { axiosInstance } from "../helpers/axiosInstance";
 import { Modal, Table, message } from "antd";
 import moment from "moment";
 import axios from "axios";
-import { useReactToPrint } from 'react-to-print';
+import { useReactToPrint } from "react-to-print";
 
 function Bookings() {
   const [showPrintModal, setShowPrintModal] = useState(false);
@@ -58,10 +58,13 @@ function Bookings() {
     {
       title: "Journey Time",
       dataIndex: "departure",
-    },
+    }, 
     {
       title: "Seats",
       dataIndex: "seats",
+      render: (seats) => {
+        return seats.join(", ");
+      },
     },
     {
       title: "Action",
@@ -88,12 +91,12 @@ function Bookings() {
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-  })
+  });
   return (
     <div>
       <PageTitle title="Bookings" />
       <div className="mt-2">
-      <Table dataSource={bookings} columns={columns} />
+        <Table dataSource={bookings} columns={columns} />
       </div>
       {showPrintModal && (
         <Modal
@@ -103,36 +106,33 @@ function Bookings() {
             setSelectedBooking(null);
           }}
           open={showPrintModal}
-          okText = "Print"
+          okText="Print"
           onOk={handlePrint}
         >
-          <div className="d-flex flex-column p-5" ref = {componentRef}>
+          <div className="d-flex flex-column p-5" ref={componentRef}>
             <p>Bus: {selectedBooking.name}</p>
             <p>
               {selectedBooking.from} - {selectedBooking.to}
             </p>
             <hr />
             <p>
-              <span > Journey Date:</span>{" "}
+              <span> Journey Date:</span>{" "}
               {moment(selectedBooking.journeyDate).format("DD-MM-YYYY")}
             </p>
             <p>
-              <span >Journey Time:</span>{" "}
-              {selectedBooking.departure}
+              <span>Journey Time:</span> {selectedBooking.departure}
             </p>
-            <hr/>
+            <hr />
             <p>
-              <span >Seat Numbers:</span>{" "} <br />
+              <span>Seat Numbers:</span> <br />
               {selectedBooking.seats}
             </p>
-            <hr/>
+            <hr />
             <p>
               <span>Total Amount:</span>{" "}
               {selectedBooking.fare * selectedBooking.seats.length} /-
             </p>
           </div>
-
-          
         </Modal>
       )}
     </div>
