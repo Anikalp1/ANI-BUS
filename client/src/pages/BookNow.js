@@ -79,41 +79,41 @@ function BookNow() {
       {bus && (
         <Row className="mt-3" gutter={[30,30]}>
           <Col lg={12} xs={24} sm={24}>
-            <h1 className="text-2xl text-secondary">{bus.name}</h1>
-            <h1 className="text-lg">
+            <p className="text-2xl text-primary">{bus.name}</p>
+            <p className="text-lg">
               {bus.from} - {bus.to}{" "}
-            </h1>
+            </p>
             <hr />
 
             <div className="flex flex-col gap-1">
-              <h1 className="text-lg">
-                <b>Journey Date</b> : {bus.journeyDate}
-              </h1>
-              <h1 className="text-lg">
-                <b>Fare</b> : ₹ {bus.fare} /-{" "}
-              </h1>
-              <h1 className="text-lg">
-                <b>Departure Time</b> : {bus.departure}
-              </h1>
-              <h1 className="text-lg">
-                <b>Arrival Time</b> : {bus.arrival}
-              </h1>
-              <h1 className="text-lg">
-                <b>Capacity</b> : {bus.capacity}
-              </h1>
-              <h1 className="text-lg">
-                <b>Seats Vacant</b> : {bus.capacity - bus.seatsBooked.length}
-              </h1>
+              <p className="text-md">
+                Journey Date : {bus.journeyDate}
+              </p>
+              <p className="text-md">
+                Fare : ₹ {bus.fare} /-{" "}
+              </p>
+              <p className="text-md">
+                Departure Time : {bus.departure}
+              </p>
+              <p className="text-md">
+                Arrival Time : {bus.arrival}
+              </p>
+              <p className="text-md">
+                Capacity : {bus.capacity}
+              </p>
+              <p className="text-md">
+                Seats Vacant : {bus.capacity - bus.seatsBooked.length}
+              </p>
             </div>
             <hr />
 
             <div className="flex flex-col gap-1">
-              <h1 className="text-lg">
-                <b>Selected Seats </b>: {selectedSeats.join(", ")}
-              </h1>
-              <h1 className="text-lg mt-2">
-                <b>Fare : </b> ₹ {bus.fare * selectedSeats.length} /-
-              </h1>
+              <p className="text-lg">
+                Selected Seats : {selectedSeats.join(", ")}
+              </p>
+              <p className="text-lg mt-2">
+               Fare : ₹ {bus.fare * selectedSeats.length} /-
+              </p>
               <hr />
 
               <StripeCheckout
@@ -124,7 +124,7 @@ function BookNow() {
                 stripeKey="pk_test_51OFd1lSHIA2lE59ZpLzg5FxvlwXuCLd3hbQ574pQnl6KqNTXItvADSE2XT0XIagUTXDSvIDL2j9VnXMK0VlaWIoL00XHSKCrK0"
               >
                 <button
-                  className={`btn btn-primary ${
+                  className={`btn primary-btn ${
                     selectedSeats.length === 0 && "disabled-btn"
                   }`}
                   disabled={selectedSeats.length === 0}

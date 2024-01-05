@@ -46,6 +46,14 @@ input , select{
     cursor: pointer;
 }
 
+.text-secondary{
+    color: var(--secondary) !important;
+}
+
+.text-primary{
+    color: var(--primary) !important;
+}
+
 /* buttons */
 .primary-btn{
     background-color: var(--primary);
@@ -63,6 +71,11 @@ input , select{
     cursor: pointer;
 }
 
+.outlined{
+    border: 2px solid var(--primary) !important;
+    color: var(--primary) !important;
+    background-color: white !important;
+}
 .disabled-btn{
     background-color: gray !important;
     color: white;
@@ -110,4 +123,8 @@ h1, p{
     height: 80px;
     width: 80px;
 
+}
+
+table{
+    border: 1px solid rgb(177, 177, 177) !important;
 }

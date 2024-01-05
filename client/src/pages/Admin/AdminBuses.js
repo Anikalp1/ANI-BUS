@@ -100,7 +100,7 @@ function AdminBuses() {
   }, []);
   return (
     <div>
-      <div className="d-flex justify-content-between">
+      <div className="d-flex justify-content-between my-2">
         <PageTitle title="Buses" />
         <button className="primary-btn" onClick={() => setShowBusForm(true)}>
           Add Bus
