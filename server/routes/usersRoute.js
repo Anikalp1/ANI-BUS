@@ -91,6 +91,7 @@ router.post("/login", async (req, res) => {
 router.post("/get-user-by-id", authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.body.userId);
+    console.log("user", user)
     res.send({
       message: "User fetched successfully",
       success: true,

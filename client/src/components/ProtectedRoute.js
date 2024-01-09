@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { SetUser } from "../redux/usersSlice";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 import DefaultLayout from "./DefaultLayout";
+import { axiosInstance } from "../helpers/axiosInstance";
 
 function ProtectedRoute({ children }) {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ function ProtectedRoute({ children }) {
   const validateToken = async () => {
     try {
       dispatch(ShowLoading());
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         "/api/users/get-user-by-id",
         {},
         {

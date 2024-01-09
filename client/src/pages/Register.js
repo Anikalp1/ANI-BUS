@@ -5,13 +5,14 @@ import axios from "axios";
 import { useDispatch } from 'react-redux';
 import { HideLoading, ShowLoading } from '../redux/alertsSlice';
 import '../resources/auth.css'
+import { axiosInstance } from '../helpers/axiosInstance';
 function Register() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const onFinish = async (values) => {
         try {
             dispatch(ShowLoading());
-            const response = await axios.post("/api/users/register", values);
+            const response = await axiosInstance.post("/api/users/register", values);
             dispatch(HideLoading());
             if (response.data.success) {
                 message.success(response.data.message);

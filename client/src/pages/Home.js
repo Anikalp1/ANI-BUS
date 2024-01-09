@@ -21,7 +21,7 @@ function Home() {
     });
     try {
       dispatch(ShowLoading());
-      const response = await axios.post("/api/buses/get-all-buses", {
+      const response = await axiosInstance.post("/api/buses/get-all-buses", {
         filters: tempFilters,
       },
       {
