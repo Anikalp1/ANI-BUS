@@ -3,6 +3,8 @@ const User = require("../models/usersModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const authMiddleware = require("../middlewares/authMiddleware");
+
+router.use(cors());
 //register new user
 router.post("/register", async (req, res) => {
   try {
