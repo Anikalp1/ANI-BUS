@@ -2,7 +2,7 @@ const dotenv = require("dotenv");
 dotenv.config({ path: "./.env" });
 const express = require ('express');
 const dbConfig = require("./config/dbConfig");
-const cors = require('cors');
+var cors = require('cors');
 const corsOptions = {
     credentials: true,
     origin: ["http://localhost:3000/"],
