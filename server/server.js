@@ -2,11 +2,17 @@ const dotenv = require("dotenv");
 dotenv.config({ path: "./.env" });
 const express = require ('express');
 const dbConfig = require("./config/dbConfig");
-
+const cors = require('cors');
+const corsOptions = {
+    credentials: true,
+    origin: ["http://localhost:3000/"],
+  };
+app.use(cors(corsOptions));
 const app = express();
 require('dotenv').config()
 const port = process.env.PORT || 5000;
 app.use(express.json())
+
 
 const usersRoute = require('./routes/usersRoute')
 const busesRoute = require('./routes/busesRoute');
